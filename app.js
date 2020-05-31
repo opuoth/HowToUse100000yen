@@ -33,7 +33,7 @@ app.get('/api', (req, res) => {
 
     await (async function(sumPrice){
       while(sumPrice>0){
-          var docs = await db.collection("items")
+          var docs = await db.collection("sample")
             .find({"itemPrice": {$lt: sumPrice}})
             // .sort({ "itemPrice": 1})
             .toArray();
