@@ -13,7 +13,7 @@ client.connect(function(err, client) {
   assert.equal(null, err);
   console.log("Connected successfully to server");
 
-  const db = client.db(DATABASE);
+  const db = client.db(process.env.DB_NAME ||DATABASE);
 
   const promise = new Promise((resolve, reject) => {
     request.get({
