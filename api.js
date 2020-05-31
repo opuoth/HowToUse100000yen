@@ -6,9 +6,10 @@ const { CONNECTION_URL, OPTIONS, DATABASE } = require("./config/mongodb.config")
 var itemURL = 'https://app.rakuten.co.jp/services/api/IchibaItem/Search/20170706';
 var genreURL = 'https://app.rakuten.co.jp/services/api/IchibaGenre/Search/20140222';
 const ID = "1013480220474653408";
-var itemList = [];
+const client = new MongoClient(process.env.MONGODB_URI ||CONNECTION_URL, OPTIONS );
 
-MongoClient.connect(CONNECTION_URL, OPTIONS, function(err, client) {
+
+client.connect(function(err, client) {
   assert.equal(null, err);
   console.log("Connected successfully to server");
 
