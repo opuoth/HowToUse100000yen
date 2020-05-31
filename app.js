@@ -4,6 +4,8 @@ const express = require('express');
 const app = express();
 const bodyParser = require('body-parser');
 const { CONNECTION_URL, OPTIONS, DATABASE } = require("./config/mongodb.config");
+const client = new MongoClient(process.env.MONGODB_URI ||CONNECTION_URL, OPTIONS );
+
 process.on('unhandledRejection', console.dir);
 
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -18,7 +20,7 @@ app.get('/', (req, res) => {
 app.get('/api', (req, res) => {
   var sumPrice = 100000;
   var frontItems = [];
-  MongoClient.connect(CONNECTION_URL, OPTIONS, async function(err, client) {
+  client.connect(async function(err, client) {
     assert.equal(null, err);
     console.log("Connected successfully to server");
 
