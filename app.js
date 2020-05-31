@@ -18,7 +18,7 @@ app.get('/', (req, res) => {
 });
 
 app.get('/api', (req, res) => {
-  var sumPrice = 100000;
+  var sumPrice = 1000;
   var frontItems = [];
   client.connect(async function(err, client) {
     assert.equal(null, err);
