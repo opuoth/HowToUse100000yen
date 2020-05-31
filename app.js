@@ -11,6 +11,10 @@ app.use(bodyParser.json());
 
 var port = process.env.PORT || 8080; // port番号を指定
 
+app.get('/', (req, res) => {
+  res.send("aaa");
+});
+
 app.get('/api', (req, res) => {
   var sumPrice = 100000;
   var frontItems = [];
