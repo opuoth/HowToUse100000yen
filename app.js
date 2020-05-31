@@ -9,7 +9,7 @@ process.on('unhandledRejection', console.dir);
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
-var port = process.env.PORT || 8080; // port番号を指定
+var port = process.env.PORT || 3000; // port番号を指定
 
 app.get('/', (req, res) => {
   res.send("aaa");
