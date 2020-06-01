@@ -16,6 +16,7 @@ co = db.items
 
 pages = 50
 cnt = 0
+throw = 0
 
 ID = "1083629625210134163"
 itemURL =  'https://app.rakuten.co.jp/services/api/IchibaItem/Search/20170706'
@@ -27,19 +28,23 @@ children = genreData["children"]
 
 
 for child in children:
-  time.sleep(0.01)
+  # time.sleep(0.001)
   genreId = child['child']['genreId']
+  throw+=1
+  if(throw<=16):
+    continue
   cnt = 0
   for page in range(pages):
     page+=1
-    time.sleep(0.01)
+    # time.sleep(0.001)
     itemQs = {
       "genreId":str(genreId),
       "format":"json",
       "applicationId":ID, 
       "page":str(page),
       "minPrice":"1000",
-      "maxPrice":"100000"
+      "maxPrice":"100000",
+      # "sort":"+reviewAverage"
       }
     itemData = requests.get(itemURL, params=itemQs).json()
     # print(itemData)
