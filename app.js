@@ -21,7 +21,7 @@ app.get('/', (req, res) => {
 });
 
 app.get('/api', (req, res) => {
-  var sumPrice = 10000;
+  var sumPrice = 1000;
   var frontItems = [];
   const client = new MongoClient(process.env.MONGODB_URI ||CONNECTION_URL, OPTIONS );
   // console.log(client)
