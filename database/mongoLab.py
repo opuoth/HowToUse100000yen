@@ -12,9 +12,9 @@ client['heroku_t71gxgpg'].authenticate(user, pwd)
 
 # client.drop_database(client.sample)
 db = client.heroku_t71gxgpg
-co = db.sample
+co = db.items
 
-pages = 99
+pages = 50
 cnt = 0
 
 ID = "1083629625210134163"
@@ -27,13 +27,20 @@ children = genreData["children"]
 
 
 for child in children:
-  time.sleep(0.1)
+  time.sleep(0.01)
   genreId = child['child']['genreId']
   cnt = 0
   for page in range(pages):
     page+=1
-    time.sleep(0.1)
-    itemQs = {"genreId":str(genreId),"format":"json","applicationId":ID, "page":str(page)}
+    time.sleep(0.01)
+    itemQs = {
+      "genreId":str(genreId),
+      "format":"json",
+      "applicationId":ID, 
+      "page":str(page),
+      "minPrice":"1000",
+      "maxPrice":"100000"
+      }
     itemData = requests.get(itemURL, params=itemQs).json()
     # print(itemData)
     if('Items' in itemData):

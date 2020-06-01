@@ -21,7 +21,7 @@ app.get('/', (req, res) => {
 });
 
 app.get('/api', (req, res) => {
-  var sumPrice = 1000;
+  var sumPrice = 100000;
   var frontItems = [];
   const client = new MongoClient(process.env.MONGODB_URI ||CONNECTION_URL, OPTIONS );
   // console.log(client)
@@ -33,7 +33,8 @@ app.get('/api', (req, res) => {
 
     await (async function(sumPrice){
       while(sumPrice>0){
-          var docs = await db.collection("sample")
+          // var docs = await db.collection("sample")
+          var docs = await db.collection("items")
             .find({"itemPrice": {$lt: sumPrice}})
             // .sort({ "itemPrice": 1})
             .toArray();
