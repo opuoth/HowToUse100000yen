@@ -24,7 +24,7 @@ app.get('/api', (req, res) => {
   var sumPrice = 100000;
   var frontItems = [];
   const client = new MongoClient(process.env.MONGODB_URI ||CONNECTION_URL, OPTIONS );
-  console.log(client)
+  // console.log(client)
   client.connect(async function(err, client) {
     assert.equal(null, err);
     console.log("Connected successfully to server");

@@ -14,7 +14,7 @@ client['heroku_t71gxgpg'].authenticate(user, pwd)
 db = client.heroku_t71gxgpg
 co = db.sample
 
-pages = 1
+pages = 99
 cnt = 0
 
 ID = "1083629625210134163"
@@ -23,27 +23,35 @@ genreURL = 'https://app.rakuten.co.jp/services/api/IchibaGenre/Search/20140222'
 genreQs = {"genreId":"0","format":"json","applicationId":ID}
 
 genreData = requests.get(genreURL, params=genreQs).json()
-child = genreData["children"][0]
-# time.sleep(0.1)
-genreId = child['child']['genreId']
-for page in range(pages):
-  page+=1
-  # time.sleep(0.1)
-  itemQs = {"genreId":str(genreId),"format":"json","applicationId":ID, "page":str(page)}
-  itemData = requests.get(itemURL, params=itemQs).json()
-  # print(itemData["error"])
-  if('Items' in itemData):
-    items = itemData["Items"]
-  else:
-    time.sleep(1)
-    print(itemData)
-    print("eeeerrrrrrooooooooorrrrrrr\n")
-    continue
-  for item in items:
-    cnt += 1
-    if(cnt>=6):
-      break
-    item = item["Item"]
-    item["nowGenreId"] = genreId
-    co.insert_one(item)
-    print(item)
+children = genreData["children"]
+
+
+for child in children:
+  time.sleep(0.1)
+  genreId = child['child']['genreId']
+  cnt = 0
+  for page in range(pages):
+    page+=1
+    time.sleep(0.1)
+    itemQs = {"genreId":str(genreId),"format":"json","applicationId":ID, "page":str(page)}
+    itemData = requests.get(itemURL, params=itemQs).json()
+    # print(itemData)
+    if('Items' in itemData):
+      items = itemData["Items"]
+    else:
+      time.sleep(0.3)
+      cnt += 1
+      if(cnt>=100000000):
+        break
+      print("eeeerrrrrrooooooooorrrrrrr\n")
+      continue
+    for item in items:
+      item = item["Item"]
+      item["nowGenreId"] = genreId
+      # itemList = {}
+      # itemList["itemName"] = item["itemName"]
+      # itemList["itemPrice"] = item["itemPrice"]
+      # itemList["mediumImageUrls"] = item["mediumImageUrls"]
+      # itemList["itemUrl"] = item["itemUrl"]
+      co.insert_one(item)
+      print(item)
