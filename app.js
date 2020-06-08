@@ -9,6 +9,7 @@ process.on('unhandledRejection', console.dir);
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
+app.set("view engine", "ejs");
 
 var port = process.env.PORT || 3000; // port番号を指定
 
