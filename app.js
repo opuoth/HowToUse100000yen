@@ -23,6 +23,7 @@ app.get('/', (req, res) => {
 
 app.get('/api', (req, res) => {
   var sumPrice = 100000;
+  var sum = 0;
   var frontItems = [];
   const client = new MongoClient(process.env.MONGODB_URI ||CONNECTION_URL, OPTIONS );
   // console.log(client)
@@ -36,7 +37,7 @@ app.get('/api', (req, res) => {
       while(sumPrice>0){
         // var docs = await db.collection("sample")
         var items = await db.collection("items")
-          .find({"itemPrice": {$lt: sumPrice}})
+          .find({"itemPrice": {$lte: sumPrice}})
         
         var len = await items.count();
         if(len === 0){
@@ -51,6 +52,7 @@ app.get('/api', (req, res) => {
         // console.log(item)
         // console.log(doc["itemPrice"]);
         var itemPrice = await item["itemPrice"];
+        sum += await itemPrice;
         sumPrice = await sumPrice - itemPrice;
         console.log(sumPrice);
         if(sumPrice>=0){
@@ -64,7 +66,7 @@ app.get('/api', (req, res) => {
     // res.json(frontItems);
     var data = {};
     data["items"] = frontItems;
-    data["sumPrice"] = sumPrice;
+    data["sumPrice"] = sum;
     res.render("./index/index.ejs", data);
     client.close();
   });
