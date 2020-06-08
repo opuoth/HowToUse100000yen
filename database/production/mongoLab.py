@@ -22,7 +22,7 @@ pages = 50
 cnt = 0
 throw = 0
 
-ID = "1083629625210134163"
+ID = settings.AP
 itemURL =  'https://app.rakuten.co.jp/services/api/IchibaItem/Search/20170706'
 genreURL = 'https://app.rakuten.co.jp/services/api/IchibaGenre/Search/20140222'
 genreQs = {"genreId":"0","format":"json","applicationId":ID}
