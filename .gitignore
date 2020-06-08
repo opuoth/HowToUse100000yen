@@ -1,2 +1,3 @@
 DB_NAME=myproject  
 MONGODB_URI=mongodb://localhost:27017/myproject  
+.env

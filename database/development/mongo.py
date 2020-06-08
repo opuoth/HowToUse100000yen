@@ -2,23 +2,19 @@ import pymongo
 import requests
 import json
 import time
+import sys
+sys.path.append('..')
+import settings
 
-user = "heroku_t71gxgpg"
-pwd = "veibbs8t98q3hrlrlll0mgmg6d"
-
-# client = pymongo.MongoClient('localhost', 27017)
-client = pymongo.MongoClient('ds153495.mlab.com', 53495, retryWrites='false')
-client['heroku_t71gxgpg'].authenticate(user, pwd)
-
-# client.drop_database(client.sample)
-db = client.heroku_t71gxgpg
+client = pymongo.MongoClient('localhost', 27017)
+db = client.rakutenAPI
 co = db.items
 
-pages = 50
+pages = 99
 cnt = 0
-throw = 0
 
-ID = "1083629625210134163"
+#API_KEY
+ID = settings.AP
 itemURL =  'https://app.rakuten.co.jp/services/api/IchibaItem/Search/20170706'
 genreURL = 'https://app.rakuten.co.jp/services/api/IchibaGenre/Search/20140222'
 genreQs = {"genreId":"0","format":"json","applicationId":ID}
@@ -28,24 +24,13 @@ children = genreData["children"]
 
 
 for child in children:
-  # time.sleep(0.001)
+  time.sleep(0.1)
   genreId = child['child']['genreId']
-  throw+=1
-  if(throw<=16):
-    continue
   cnt = 0
   for page in range(pages):
     page+=1
-    # time.sleep(0.001)
-    itemQs = {
-      "genreId":str(genreId),
-      "format":"json",
-      "applicationId":ID, 
-      "page":str(page),
-      "minPrice":"1000",
-      "maxPrice":"100000",
-      # "sort":"+reviewAverage"
-      }
+    time.sleep(0.1)
+    itemQs = {"genreId":str(genreId),"format":"json","applicationId":ID, "page":str(page)}
     itemData = requests.get(itemURL, params=itemQs).json()
     # print(itemData)
     if('Items' in itemData):
@@ -67,3 +52,6 @@ for child in children:
       # itemList["itemUrl"] = item["itemUrl"]
       co.insert_one(item)
       print(item)
+
+# for data in co.find():
+#     print(data)

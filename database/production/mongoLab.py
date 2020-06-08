@@ -2,13 +2,25 @@ import pymongo
 import requests
 import json
 import time
+import sys
+sys.path.append('..')
+import settings
 
-client = pymongo.MongoClient('localhost', 27017)
-db = client.rakutenAPI
+user = settings.mongo_user
+pwd = settings.mongo_pwd
+coll = settings.mongo_coll
+
+# client = pymongo.MongoClient('localhost', 27017)
+client = pymongo.MongoClient('ds153495.mlab.com', 53495, retryWrites='false')
+client[coll].authenticate(user, pwd)
+
+# client.drop_database(client.sample)
+db = client[coll]
 co = db.items
 
-pages = 99
+pages = 50
 cnt = 0
+throw = 0
 
 ID = "1083629625210134163"
 itemURL =  'https://app.rakuten.co.jp/services/api/IchibaItem/Search/20170706'
@@ -20,13 +32,24 @@ children = genreData["children"]
 
 
 for child in children:
-  time.sleep(0.1)
+  # time.sleep(0.001)
   genreId = child['child']['genreId']
+  throw+=1
+  if(throw<=16):
+    continue
   cnt = 0
   for page in range(pages):
     page+=1
-    time.sleep(0.1)
-    itemQs = {"genreId":str(genreId),"format":"json","applicationId":ID, "page":str(page)}
+    # time.sleep(0.001)
+    itemQs = {
+      "genreId":str(genreId),
+      "format":"json",
+      "applicationId":ID, 
+      "page":str(page),
+      "minPrice":"1000",
+      "maxPrice":"100000",
+      # "sort":"+reviewAverage"
+      }
     itemData = requests.get(itemURL, params=itemQs).json()
     # print(itemData)
     if('Items' in itemData):
@@ -48,6 +71,3 @@ for child in children:
       # itemList["itemUrl"] = item["itemUrl"]
       co.insert_one(item)
       print(item)
-
-# for data in co.find():
-#     print(data)

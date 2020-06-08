@@ -47,7 +47,7 @@ app.get('/api', (req, res) => {
           .skip(randomNum)
           .toArray();
         var item = await itemArray[0]
-        console.log(item)
+        // console.log(item)
         // console.log(doc["itemPrice"]);
         var itemPrice = await item["itemPrice"];
         sumPrice = await sumPrice - itemPrice;
