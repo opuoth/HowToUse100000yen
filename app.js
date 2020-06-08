@@ -61,8 +61,9 @@ app.get('/api', (req, res) => {
     })(sumPrice);
     console.log(frontItems);
     // res.json(frontItems);
-    var data = {}
-    data["items"] = frontItems 
+    var data = {};
+    data["items"] = frontItems;
+    data["sumPrice"] = sumPrice;
     res.render("./index/index.ejs", data);
     client.close();
   });
