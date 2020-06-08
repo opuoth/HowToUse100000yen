@@ -1,0 +1,31 @@
+
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <title>会員メニュー</title>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.1/css/all.css">
+  </head>
+
+  <body>
+
+    <main role="main" class="container">
+
+      <div class="border-bottom mt-5 mb-5">
+        <h1>検索結果</h1>
+      </div>
+      <% for(var item of items){ %>
+        <a href=<%=item["itemUrl"] %>>
+          <img src=<%=item["mediumImageUrls"][0]["imageUrl"] %>>
+        </a>
+        <h7><%= item["itemName"] %></h7>
+        <h5><%= item["itemPrice"] %>円</h5>
+      <%}%>
+
+    </main>
+  </body>
+</html>

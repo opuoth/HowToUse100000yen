@@ -60,7 +60,10 @@ app.get('/api', (req, res) => {
       }
     })(sumPrice);
     console.log(frontItems);
-    res.json(frontItems);
+    // res.json(frontItems);
+    var data = {}
+    data["items"] = frontItems 
+    res.render("./index/index.ejs", data);
     client.close();
   });
 
