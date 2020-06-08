@@ -20,6 +20,7 @@
       </div>
       <h4><%= items.length %>件</h4>
       <h4>合計金額:<%= sumPrice %>円</h4>
+      <h4>余り:<%= 100000-sumPrice %>円</h4>
       <% for(var item of items){ %>
         <a href=<%=item["itemUrl"] %>>
           <img src=<%=item["mediumImageUrls"][0]["imageUrl"]|| "no data"  %>>
