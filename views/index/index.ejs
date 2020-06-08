@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-    <title>会員メニュー</title>
+    <title>給付金</title>
 
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.1/css/all.css">
@@ -20,7 +20,7 @@
       </div>
       <% for(var item of items){ %>
         <a href=<%=item["itemUrl"] %>>
-          <img src=<%=item["mediumImageUrls"][0]["imageUrl"] %>>
+          <img src=<%=item["mediumImageUrls"][0]["imageUrl"]|| "no data"  %>>
         </a>
         <h7><%= item["itemName"] %></h7>
         <h5><%= item["itemPrice"] %>円</h5>
